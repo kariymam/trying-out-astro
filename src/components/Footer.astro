@@ -15,7 +15,7 @@ import site from '../data/site.json';
             <ul id="contact-info" class="mt-1 flex flex-col gap-2">
                 <li class="footer--link flex rounded-xl items-center px-4 gap-2 h-10 py-1 hover:bg-[var(--secondary-color)]">
                     <span class="border-2 rounded-full h-full w-9">
-                        <img src="/linkedin.svg" alt="LinkedIn Logo">
+                        <img src="/linkedin.svg" alt="LinkedIn Logo" class="ionicon m-auto h-full w-5">
                     </span>
                     <div class="flex ml-[2px] w-full items-center">
                         <a href={ site.author.linkedin }>/kariymamurphy</a>
@@ -24,7 +24,7 @@ import site from '../data/site.json';
                 </li>
                 <li class="footer--link flex rounded-xl items-center px-4 gap-2 h-10 py-1 hover:bg-[var(--secondary-color)]">
                     <span class="border-2 rounded-full h-full w-9">
-                        <img src="/github.svg" alt="Github Logo">
+                        <img src="/github.svg" alt="Github Logo" class="ionicon m-auto h-full w-5">
                     </span>
                     <div class="flex ml-[2px] w-full items-center">
                         <a href={ site.author.github }>/kariymam</a>
@@ -33,7 +33,7 @@ import site from '../data/site.json';
                 </li>
                 <li class="footer--link flex rounded-xl items-center px-4 gap-2 h-10 py-1 hover:bg-[var(--secondary-color)]">
                     <span class="border-2 rounded-full h-full w-9">
-                        <img src="/github.svg" alt="Github Logo">
+                        <img src="/github.svg" alt="Github Logo" class="ionicon m-auto h-full w-5">
                     </span>
                     <div class="flex ml-[2px] w-full items-center">
                         <a href={ site.author.github }>kariyma@proton.me</a>
@@ -44,3 +44,88 @@ import site from '../data/site.json';
         </div>
     </div>
 </footer>
+<script>
+    import { gsap } from "gsap";
+    import { TextPlugin } from "gsap/TextPlugin";
+
+    const animaSearch = document.getElementById("anima-search");
+    const typewriter = (el) => {
+        const footerLinks = document.querySelectorAll('.footer--link');
+        if (!animaSearch || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return 
+        } else {
+            const input = el.innerText;
+            gsap.registerPlugin(TextPlugin)
+        
+            // fade-in links
+            const fadeInLinks = (arr: any[] | NodeListOf<Element>) => {
+                let tl = gsap.timeline();
+                arr.forEach((link: gsap.TweenTarget) => {
+                    tl.fromTo(link, { opacity: 0, x: 20 }, {
+                        delay: 0.1,
+                        duration: 0.5,
+                        x: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        onComplete: function () {
+                            gsap.set(this.targets(), { clearProps: "all" });
+                        }
+                    });
+                });
+                return tl;
+            };
+        
+            // typewriter
+            const getChar = (str) => {
+                let tl = gsap.timeline();
+                tl.to(el, { text: `${str}`, duration: 1, ease: 'power1.inOut'});
+                return tl;
+            }
+        
+            // master timeline
+            let master = gsap.timeline()
+                             .add(getChar(input))
+                             .add(fadeInLinks(footerLinks), "-=0.5");
+            
+            
+            el.textContent = '';
+            return master
+        }
+    }
+    //check if footer is in target
+    function createObserver() {
+        let observer
+
+        let options = {
+            root: document.querySelector("body"),
+            rootMargin: "0px",
+            threshold: 0.5,
+        }
+
+        observer = new IntersectionObserver((callback, options: IntersectionObserver) => {
+            if (callback[0].intersectionRatio <= 0) return;
+            typewriter(animaSearch);
+        });
+
+        observer.observe(document.getElementById("main-footer"), options)
+    }; 
+    createObserver();
+
+
+    //time display
+    const timeDisplay = document.getElementById("local-time");
+    function refreshTime() {
+        if (!timeDisplay){
+            return
+        }
+        const dateString = new Date().toLocaleString("en-US", {
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true,
+        });
+        timeDisplay.innerHTML = dateString;
+    }
+    setInterval(refreshTime, 1000);
+
+  </script>
