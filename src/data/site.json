@@ -1,5 +1,12 @@
 {
     "title": "Trying Out Astro",
     "description": "I do a little bit of this and a little bit of that",
-    "language": "en" 
+    "language": "en",
+    "author": {
+		"name": "Kariyma Murphy",
+		"email": "kariymam@proton.me",
+		"url": "https://example.com/about-me/",
+		"linkedin": "https://www.linkedin.com/in/kariymamurphy/",
+		"github": "https://github.com/kariymam/"
+	}
 }
