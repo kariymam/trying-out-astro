@@ -1,18 +1,6 @@
 ---
-import Head from '../components/Head.astro';
-import Footer from '../components/Footer.astro';
-import site from '../data/site.json';
+import Base from '../layouts/Base.astro';
 ---
-
-<html lang="en">
-	<Head title={ site.title }>
-	</Head>
-	<body>
-		<h1>{ site.title }</h1>
-		<ul>
-			<li><a href={ site.author.linkedin }>LinkedIn</a></li>
-		</ul>
-		<Footer>
-		</Footer>
-	</body>
-</html>
+<Base title="Home">
+	<p> This is a home page</p>
+</Base>

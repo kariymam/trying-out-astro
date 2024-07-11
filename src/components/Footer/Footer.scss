@@ -1,0 +1,61 @@
+.footer--link {
+    position: relative;
+    align-content: center;
+    & a::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 10;
+      }
+      a {
+        vertical-align: top;
+      }
+    &:hover {
+        /* color: white;
+        & svg {
+            fill: white;
+        } */
+        & a {
+            text-decoration: underline;
+        }
+        & p:after {
+            content:'↗︎';
+            padding-left: 0.25rem;
+            margin: auto 0 0.18rem auto;
+            transform: translateY(1px);
+            position: absolute;
+        } 
+        & p {
+            margin-right: 1rem;
+        }
+    }
+}
+
+.contact {
+    & :last-child {
+        border-radius: 0 0 0.75rem 0.75rem;
+    }
+}
+
+.cursor {
+    border-color: transparent;
+    animation: 200ms linear 200ms 10 alternate blink;
+}
+
+@keyframes blink {
+    0% {
+        border-color: inherit;
+    }
+    50% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: inherit;
+    }
+    100% {
+        border-color: transparent;
+    }
+}
